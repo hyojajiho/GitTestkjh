@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'idusw.jwb200412345'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.13.2'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    // Source: https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+    //compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+    compileOnly('jakarta.servlet:jakarta.servlet-api:6.1.0')
+
+    // Source: https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
+    implementation 'com.mysql:mysql-connector-j:9.7.0'
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+    useJUnitPlatform()
+}
